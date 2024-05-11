@@ -6,4 +6,5 @@
     <string name="more_details_button">More details</string>
     <string name="Imdb_button">Go to IMDB</string>
     <string name="Home_page_button">Go to Movie home page</string>
+    <string name="error_getting_movies">Error\n</string>
 </resources>

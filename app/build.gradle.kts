@@ -2,7 +2,7 @@ plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
     id("org.jetbrains.kotlin.plugin.serialization") version "1.9.10"
-
+    id("com.google.devtools.ksp") version "1.9.20-1.0.14"
 }
 
 android {
@@ -52,8 +52,19 @@ android {
 }
 
 dependencies {
+    //Room
 
+    implementation(libs.androidx.room.runtime)
+    ksp("androidx.room:room-compiler:${rootProject.extra["room_version"]}")
+    implementation(libs.androidx.room.ktx)
     implementation(libs.androidx.core.ktx)
+
+
+    implementation ("com.google.code.gson:gson:2.8.7")
+
+
+    implementation("androidx.work:work-runtime-ktx:2.8.1")
+
     implementation("androidx.media3:media3-exoplayer:1.2.0")
     implementation("androidx.media3:media3-ui:1.2.0")
     implementation(libs.androidx.lifecycle.runtime.ktx)

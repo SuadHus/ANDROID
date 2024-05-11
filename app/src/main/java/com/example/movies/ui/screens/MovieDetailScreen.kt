@@ -26,6 +26,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
@@ -53,13 +54,16 @@ import com.example.movies.model.Genre
 import com.example.movies.model.MovieVideo
 import com.example.movies.utils.Constants
 import com.example.movies.utils.Constants.EXAMPLE_VIDEO_URI
+import com.example.movies.viewmodels.MovieDBViewModel
 import com.example.movies.viewmodels.SelectedMovieUiState
 
 @Composable
 fun MovieDetailScreen(
-    selectedMovieUiState: SelectedMovieUiState,
+    movieDBViewModel: MovieDBViewModel,
     modifier:Modifier = Modifier
+
 ) {
+    val selectedMovieUiState= movieDBViewModel.selectedMovieUiState
     when (selectedMovieUiState) {
         is SelectedMovieUiState.Success -> {
             Column(modifier = modifier.verticalScroll(rememberScrollState()) ) {
@@ -107,6 +111,19 @@ fun MovieDetailScreen(
 
                     VideoHorizontal(video_uris = selectedMovieUiState.videos)
 
+                    Row {
+                        Text(text = "Favorite",
+                            style= MaterialTheme.typography.bodyLarge)
+                        
+                        Switch(checked = selectedMovieUiState.isFavorite, onCheckedChange =  {
+                            if (it)
+                                movieDBViewModel.saveFavoriteMovie(selectedMovieUiState)
+                            else
+                                movieDBViewModel.deleteMovie(selectedMovieUiState)
+
+                        })
+                        
+                    }
 
 
 
